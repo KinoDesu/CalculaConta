@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.CalculaConta" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/PrimaryLight</item>    <!--        cor vermelha primaria-->
+        <item name="colorPrimaryVariant">@color/PrimaryTextLight</item> <!--        cor preta de texto primaria-->
+        <item name="colorOnPrimary">@color/SecondaryTextLight</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/SecondaryLight</item>    <!--        cor rosa secundaria-->
+        <item name="colorSecondaryVariant">@color/SecondaryTextLight</item> <!--        cor branca de texto secundaria-->
+        <item name="colorOnSecondary">@color/PrimaryTextLight</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/PrimaryLight</item>
+        <!-- Customize your theme here. -->
+        <item name="backgroundColor">@color/BackgroundLight</item>
+    </style>
+
+    <style name="MyButtons">
+        <item name="backgroundTint">@color/PrimaryLight</item>
+        <item name="android:textColor">@color/SecondaryTextLight</item>
+        <item name="cornerRadius">20dp</item>
+    </style>
+    <style name="MyCheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:buttonTint">@color/PrimaryLight</item>
+        <item name="android:textColor">@color/PrimaryTextLight</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

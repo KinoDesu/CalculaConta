@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.CalculaConta" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/PrimaryDark</item>    <!--        cor vermelha primaria-->
+        <item name="colorPrimaryVariant">@color/PrimaryTextDark</item> <!--        cor preta de texto primaria-->
+        <item name="colorOnPrimary">@color/SecondaryTextDark</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/SecondaryDark</item>    <!--        cor rosa secundaria-->
+        <item name="colorSecondaryVariant">@color/SecondaryTextDark</item> <!--        cor branca de texto secundaria-->
+        <item name="colorOnSecondary">@color/PrimaryTextDark</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/PrimaryDark</item>
+        <!-- Customize your theme here. -->
+        <item name="backgroundColor">@color/BackgroundDark</item>
+    </style>
+    <style name="MyButtons">
+        <item name="backgroundTint">@color/PrimaryDark</item>
+        <item name="android:textColor">@color/SecondaryTextDark</item>
+    </style>
+</resources>
