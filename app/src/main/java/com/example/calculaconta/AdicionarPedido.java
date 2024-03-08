@@ -2,7 +2,9 @@ package com.example.calculaconta;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +19,7 @@ import com.example.calculaconta.models.Pedido;
 import com.example.calculaconta.models.Pessoa;
 import com.example.calculaconta.repositories.PedidoRepository;
 import com.example.calculaconta.repositories.PessoaRepository;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,6 +126,14 @@ public class AdicionarPedido extends AppCompatActivity {
         for (Pessoa pessoa:pessoasSelecionadas) {
             pessoa.setValorPagar(pessoa.getValorPagar()+pedido.getValorPessoa());
         }
+
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.dataFileName), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorSP = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String listaPedidosDefaultJson = gson.toJson(pedidoRepository.getListaDePedidos());
+
+        editorSP.putString(getString(R.string.sharedPedidos), listaPedidosDefaultJson);
+        editorSP.apply();
 
         Toast.makeText(this, nome + " foi salvo(a)!", Toast.LENGTH_SHORT).show();
 

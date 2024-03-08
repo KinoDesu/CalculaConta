@@ -22,6 +22,9 @@ public class PessoaRepository {
         return instance;
     }
 
+    public void setListaPessoas(List<Pessoa> lista){
+        listaPessoas = lista;
+    }
     public List<Pessoa> getListaDePessoas() {
         return listaPessoas;
     }

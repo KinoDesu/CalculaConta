@@ -3,7 +3,9 @@ package com.example.calculaconta;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -16,7 +18,10 @@ import android.widget.TextView;
 import com.example.calculaconta.models.Pedido;
 import com.example.calculaconta.models.Pessoa;
 import com.example.calculaconta.repositories.PedidoRepository;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -32,23 +37,38 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
         listaPedidos = findViewById(R.id.listaPedidos);
 
+
         if (listaPedidos.getChildCount() > 1) {
             while (listaPedidos.getChildCount() > 1)
                 listaPedidos.removeViewAt(1);
         }
 
         popularVariaveisTemp();
+
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.dataFileName), Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String listaPedidosDefaultJson = gson.toJson(pedidos);
+        String resultadoShared = sharedPreferences.getString(getString(R.string.sharedPedidos), listaPedidosDefaultJson);
+
+        pedidos = gson.fromJson(resultadoShared, new TypeToken<List<Pedido>>() {});
+        pedidoRepository.setListaPedidos(pedidos);
+
         gerarListaPedidos();
 
     }
 
-    private void gerarListaPedidos(){
+    private void gerarListaPedidos() {
 
-        if(pedidos.isEmpty()){
+        if (pedidos.isEmpty()) {
             TextView textListaVazia = new TextView(this);
-            textListaVazia.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT));
+            LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            textParams.setMargins(20, 50, 20, 0);
+            textListaVazia.setLayoutParams(textParams);
+
+            File sds = getCacheDir();
+
 
             TypedValue typedValue = new TypedValue();
             getTheme().resolveAttribute(com.google.android.material.R.attr.colorSecondary, typedValue, true);
@@ -57,9 +77,9 @@ public class HomePage extends AppCompatActivity {
             textListaVazia.setGravity(Gravity.CENTER);
             textListaVazia.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             textListaVazia.setTextColor(color);
-            String texto ="Parece que a mesa tá parada ainda...";
+            String texto = "Parece que a mesa tá parada ainda...";
             textListaVazia.setText(texto);
-            textListaVazia.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+            textListaVazia.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);
             textListaVazia.setTypeface(null, Typeface.BOLD);
             listaPedidos.addView(textListaVazia);
             return;
@@ -77,7 +97,7 @@ public class HomePage extends AppCompatActivity {
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
-            params.setMargins(0,0,0,50);
+            params.setMargins(0, 0, 0, 50);
             layoutPedido.setLayoutParams(params);
             layoutPedido.setOrientation(LinearLayout.VERTICAL);
 
@@ -86,15 +106,14 @@ public class HomePage extends AppCompatActivity {
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
-            params.setMargins(0,0,0,50);
+            params.setMargins(0, 0, 0, 50);
             layoutBoxPedido.setLayoutParams(params);
             layoutBoxPedido.setOrientation(LinearLayout.HORIZONTAL);
-            layoutBoxPedido.setPadding(60,0,60,0);
+            layoutBoxPedido.setPadding(60, 0, 60, 0);
 
             TypedValue typedValuedsd = new TypedValue();
             getTheme().resolveAttribute(com.google.android.material.R.attr.colorPrimaryVariant, typedValuedsd, true);
             int colordds = ContextCompat.getColor(this, typedValuedsd.resourceId);
-
 
 
             //endregion
@@ -112,7 +131,7 @@ public class HomePage extends AppCompatActivity {
             int color = ContextCompat.getColor(this, typedValue.resourceId);
 
             textViewNomePedido.setTextColor(color);
-            String texto =pedidos.get(i).getNome();
+            String texto = pedidos.get(i).getNome();
             textViewNomePedido.setText(texto);
             textViewNomePedido.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             textViewNomePedido.setTypeface(null, Typeface.BOLD);
@@ -136,7 +155,7 @@ public class HomePage extends AppCompatActivity {
 
             textViewPrecoPedido.setTypeface(null, Typeface.BOLD);
             textViewPrecoPedido.setTextColor(color);
-            texto = pedidos.get(i).getQuantidade() + "x R$ " + df.format(pedidos.get(i).getValorProduto()).replace(".",",");
+            texto = pedidos.get(i).getQuantidade() + "x R$ " + df.format(pedidos.get(i).getValorProduto()).replace(".", ",");
             textViewPrecoPedido.setText(texto);
             textViewPrecoPedido.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             textViewPrecoPedido.setGravity(Gravity.END);
@@ -200,10 +219,10 @@ public class HomePage extends AppCompatActivity {
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
-            params.setMargins(0,25,0,50);
+            params.setMargins(0, 25, 0, 50);
             layoutBoxDetalhes.setLayoutParams(params);
             layoutBoxDetalhes.setOrientation(LinearLayout.HORIZONTAL);
-            layoutBoxDetalhes.setPadding(60,0,60,0);
+            layoutBoxDetalhes.setPadding(60, 0, 60, 0);
             //endregion
 
             //region Nome
@@ -219,7 +238,7 @@ public class HomePage extends AppCompatActivity {
             color = ContextCompat.getColor(this, typedValue.resourceId);
 
             textViewNomePessoa.setTextColor(color);
-            String texto =(pedidos.get(id).getListaPessoas().get(i).getNome());
+            String texto = (pedidos.get(id).getListaPessoas().get(i).getNome());
             textViewNomePessoa.setText(texto);
             textViewNomePessoa.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             textViewNomePessoa.setTypeface(null, Typeface.BOLD);
@@ -236,7 +255,7 @@ public class HomePage extends AppCompatActivity {
             textViewPrecoPessoa.setTypeface(null, Typeface.BOLD);
             textViewPrecoPessoa.setTextColor(color);
 
-            texto = "R$ " + df.format(pedidos.get(id).getValorPessoa()).replace(".",",");
+            texto = "R$ " + df.format(pedidos.get(id).getValorPessoa()).replace(".", ",");
             textViewPrecoPessoa.setText(texto);
             textViewPrecoPessoa.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             textViewPrecoPessoa.setGravity(Gravity.END);
@@ -251,11 +270,11 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
-    private void popularVariaveisTemp(){
+    private void popularVariaveisTemp() {
         pedidos = pedidoRepository.getListaDePedidos();
     }
 
-    public void MoveToAddPedido(View v){
+    public void MoveToAddPedido(View v) {
         Intent intent = new Intent(this, AdicionarPedido.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -263,7 +282,7 @@ public class HomePage extends AppCompatActivity {
         finish();
     }
 
-    public void MoveToPagar(View v){
+    public void MoveToPagar(View v) {
         Intent intent = new Intent(this, ContaFinal.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

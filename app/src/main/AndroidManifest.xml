@@ -12,6 +12,9 @@
         android:theme="@style/Theme.CalculaConta"
         tools:targetApi="31">
         <activity
+            android:name=".CompraFinalizada"
+            android:exported="false" />
+        <activity
             android:name=".ContaFinal"
             android:exported="false" />
         <activity

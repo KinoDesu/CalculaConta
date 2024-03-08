@@ -2,7 +2,9 @@ package com.example.calculaconta;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.calculaconta.models.Pessoa;
 import com.example.calculaconta.repositories.PessoaRepository;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -65,6 +68,15 @@ public class CadastroPessoa extends AppCompatActivity {
 
                 Pessoa pessoa = new Pessoa(nome);
                 pessoaRepository.adicionarPessoa(pessoa);
+
+                SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.dataFileName), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorSP = sharedPreferences.edit();
+                Gson gson = new Gson();
+                String listaPessoasDefaultJson = gson.toJson(pessoaRepository.getListaDePessoas());
+
+                editorSP.putString(getString(R.string.sharedPessoas), listaPessoasDefaultJson);
+                editorSP.apply();
+
 
                 Toast.makeText(CadastroPessoa.this, nome + " foi salvo(a)!", Toast.LENGTH_SHORT).show();
 

@@ -41,7 +41,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="text|textPersonName|textCapCharacters|textCapSentences|textCapWords"
         android:minHeight="48dp" />
 
     <View

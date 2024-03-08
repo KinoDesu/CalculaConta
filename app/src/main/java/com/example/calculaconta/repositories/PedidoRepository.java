@@ -1,5 +1,8 @@
 package com.example.calculaconta.repositories;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.example.calculaconta.models.Pedido;
 
 import java.util.ArrayList;
@@ -9,7 +12,6 @@ public class PedidoRepository {
     private static PedidoRepository instance;
     private int id = 1;
     private List<Pedido> listaPedidos;
-
     private PedidoRepository() {
         listaPedidos = new ArrayList<>();
     }
@@ -21,6 +23,9 @@ public class PedidoRepository {
         return instance;
     }
 
+    public void setListaPedidos(List<Pedido> lista){
+        listaPedidos = lista;
+    }
     public List<Pedido> getListaDePedidos() {
         return listaPedidos;
     }

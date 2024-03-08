@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Calcula\nConta</string>
     <string name="swipe_up_txt">Arrasta pra cima ^</string>
+    <string name="dataFileName">com.example.calculaconta.CalculaContaData</string>
+    <string name="sharedPessoas">ListaPessoasJSON</string>
+    <string name="sharedPedidos">ListaPedidosJSON</string>
+    <string name="title_activity_compra_finalizada">CompraFinalizada</string>
 </resources>

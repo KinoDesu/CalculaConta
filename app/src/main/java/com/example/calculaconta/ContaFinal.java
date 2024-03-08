@@ -3,13 +3,16 @@ package com.example.calculaconta;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -163,7 +166,20 @@ public class ContaFinal extends AppCompatActivity {
         }
 
     }
+    public void FinalizarCompra(View v){
 
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.dataFileName), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.clear();
+        editor.apply();
+
+        Intent intent = new Intent(this, CompraFinalizada.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_from_bottom, R.anim.slide_to_top);
+        finish();
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();

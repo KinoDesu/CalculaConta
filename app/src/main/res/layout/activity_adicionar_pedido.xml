@@ -41,7 +41,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="text|textPersonName|textCapCharacters|textCapSentences|textCapWords"
         android:minHeight="48dp" />
 
     <LinearLayout
@@ -72,8 +72,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="R$ 0,00"
-                android:inputType="textPersonName" />
+                android:inputType="number|numberDecimal"
+                android:text="R$ 0,00" />
 
         </LinearLayout>
 
