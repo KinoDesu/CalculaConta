@@ -124,15 +124,18 @@ public class AdicionarPedido extends AppCompatActivity {
 
         Pedido pedido = pedidoRepository.adicionarPedido(new Pedido(nome, quantidade, valor, pessoasSelecionadas));
         for (Pessoa pessoa:pessoasSelecionadas) {
-            pessoa.setValorPagar(pessoa.getValorPagar()+pedido.getValorPessoa());
+            Pessoa pessoaOriginal = pessoaRepository.getPessoaById(pessoa.getId());
+            pessoaOriginal.setValorPagar(pessoa.getValorPagar()+pedido.getValorPessoa());
         }
 
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.dataFileName), Context.MODE_PRIVATE);
         SharedPreferences.Editor editorSP = sharedPreferences.edit();
         Gson gson = new Gson();
         String listaPedidosDefaultJson = gson.toJson(pedidoRepository.getListaDePedidos());
+        String listaPessoasDefaultJson = gson.toJson(pessoaRepository.getListaDePessoas());
 
         editorSP.putString(getString(R.string.sharedPedidos), listaPedidosDefaultJson);
+        editorSP.putString(getString(R.string.sharedPessoas), listaPessoasDefaultJson);
         editorSP.apply();
 
         Toast.makeText(this, nome + " foi salvo(a)!", Toast.LENGTH_SHORT).show();

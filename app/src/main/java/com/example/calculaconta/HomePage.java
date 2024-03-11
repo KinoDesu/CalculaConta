@@ -25,6 +25,11 @@ import java.io.File;
 import java.text.DecimalFormat;
 import java.util.List;
 
+
+//TODO: permitir editar/remover um pedido
+//TODO: gravar histórico de restaurantes
+//TODO: remover fechamento automático
+
 public class HomePage extends AppCompatActivity {
 
     private List<Pedido> pedidos;
