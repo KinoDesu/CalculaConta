@@ -7,11 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -163,7 +165,7 @@ public class HomePage extends AppCompatActivity {
             texto = pedidos.get(i).getQuantidade() + "x R$ " + df.format(pedidos.get(i).getValorProduto()).replace(".", ",");
             textViewPrecoPedido.setText(texto);
             textViewPrecoPedido.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-            textViewPrecoPedido.setGravity(Gravity.END);
+            textViewPrecoPedido.setGravity(Gravity.CENTER);
             textViewPrecoPedido.setClickable(true);
             textViewPrecoPedido.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -171,6 +173,22 @@ public class HomePage extends AppCompatActivity {
                     expandirDetalhes(listaPedidos, layoutPedido, idPedido);
                 }
             });
+            //endregion
+
+            //region imagem
+
+            ImageView  imagemMaisInfo = new ImageView(this);
+            LinearLayout.LayoutParams paramImagemMaisInfo = new LinearLayout.LayoutParams(
+                    0,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    0.2f
+            );
+            paramImagemMaisInfo.gravity = Gravity.CENTER;
+            imagemMaisInfo.setLayoutParams(paramImagemMaisInfo);
+            String uri = "@android:drawable/ic_menu_add";
+            int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+            imagemMaisInfo.setImageResource(imageResource);
+
             //endregion
 
             layoutBoxPedido.setOnClickListener(new View.OnClickListener() {
@@ -182,6 +200,7 @@ public class HomePage extends AppCompatActivity {
 
             layoutBoxPedido.addView(textViewNomePedido);
             layoutBoxPedido.addView(textViewPrecoPedido);
+            layoutBoxPedido.addView(imagemMaisInfo);
             layoutPedido.addView(layoutBoxPedido);
 
             listaPedidos.addView(layoutPedido);

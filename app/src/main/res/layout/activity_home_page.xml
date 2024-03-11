@@ -32,7 +32,9 @@
             android:id="@+id/listaPedidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical">
+
+        </LinearLayout>
     </ScrollView>
 
     <LinearLayout
@@ -41,7 +43,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp">
 
         <Button
             android:id="@+id/setup_macroSavebtn"
